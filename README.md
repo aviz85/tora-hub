@@ -2,6 +2,9 @@
 
 רשת חברתית תורנית סביב מקורות יהודיים, המאפשרת לימוד משותף ושיתוף חידושי תורה.
 
+**Project Overview (English)**  
+Tora Hub is a Torah-focused social network for collaborative study, sharing insights, and building an online community.
+
 ## מהות הפרוייקט
 
 תורה האב היא פלטפורמה המאפשרת למשתמשים:
@@ -25,6 +28,13 @@
 - פרסום וצפייה בחידושים אישיים
 - ממשק משתמש דו-כיווני בעברית
 - פרופיל משתמש אישי
+
+### Main Features (English)
+- Full registration and login system
+- Browse Torah sources
+- Publish and view personal insights
+- Hebrew bidirectional user interface
+- Personal user profile
 
 ## התקנה והרצה מקומית
 
@@ -59,6 +69,38 @@ npm run dev
 ```
 
 5. פתח את `http://localhost:3000` בדפדפן.
+
+## Installation and Local Development (English)
+
+### Prerequisites
+- Node.js version 18 or higher
+- npm or yarn
+- Supabase account (free)
+
+### Setup Steps
+1. Clone the repository:
+```bash
+git clone <repo-url>
+cd tora-hub
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Create a `.env.local` file and set your Supabase URL and anon key:
+```
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+```
+
+4. Run the local server:
+```bash
+npm run dev
+```
+
+5. Open `http://localhost:3000` in your browser.
 
 ## הגדרת Supabase
 
