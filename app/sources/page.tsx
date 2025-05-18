@@ -19,6 +19,7 @@ export default function Sources() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   
   const categories = [
     'תנ"ך',
@@ -29,6 +30,15 @@ export default function Sources() {
     'מוסר',
     'חסידות',
   ];
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const supabase = createClient();
+      const { data } = await supabase.auth.getSession();
+      setIsLoggedIn(!!data.session);
+    };
+    checkSession();
+  }, []);
   
   useEffect(() => {
     const fetchSources = async () => {
@@ -71,6 +81,16 @@ export default function Sources() {
   return (
     <div className="space-y-8">
       <h1 className="text-3xl font-bold text-blue-900">מקורות תורניים</h1>
+      {isLoggedIn && (
+        <div>
+          <Link
+            href="/sources/new"
+            className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline inline-block"
+          >
+            הוסף מקור חדש
+          </Link>
+        </div>
+      )}
       
       {/* Category filters */}
       <div className="flex flex-wrap gap-2">
