@@ -10,6 +10,8 @@ export default function Profile() {
   const [loading, setLoading] = useState(true);
   const [displayName, setDisplayName] = useState('');
   const [bio, setBio] = useState('');
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [updateLoading, setUpdateLoading] = useState(false);
@@ -49,7 +51,9 @@ export default function Profile() {
           bio: data.bio || '',
           avatarUrl: data.avatar_url,
         });
-        
+
+        setAvatarPreview(data.avatar_url || null);
+
         setDisplayName(data.display_name);
         setBio(data.bio || '');
       }
@@ -59,21 +63,46 @@ export default function Profile() {
     
     fetchProfile();
   }, [router]);
+
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setAvatarFile(file);
+      setAvatarPreview(URL.createObjectURL(file));
+    }
+  };
   
   const handleUpdateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setMessage(null);
     setUpdateLoading(true);
-    
+
     try {
       const supabase = createClient();
-      
+
+      let finalAvatarUrl = user?.avatarUrl || null;
+      if (avatarFile && user) {
+        const fileExt = avatarFile.name.split('.').pop();
+        const filePath = `${user.id}/avatar.${fileExt}`;
+        const { error: uploadError } = await supabase.storage
+          .from('avatars')
+          .upload(filePath, avatarFile, { upsert: true });
+        if (uploadError) {
+          throw uploadError;
+        }
+        const { data: publicData } = supabase.storage
+          .from('avatars')
+          .getPublicUrl(filePath);
+        finalAvatarUrl = publicData.publicUrl;
+      }
+
       const { error } = await supabase
         .from('profiles')
         .update({
           display_name: displayName,
           bio: bio,
+          avatar_url: finalAvatarUrl,
         })
         .eq('id', user?.id);
         
@@ -82,7 +111,9 @@ export default function Profile() {
         console.error('Error updating profile:', error);
       } else {
         setMessage('הפרופיל עודכן בהצלחה');
-        setUser(prev => prev ? { ...prev, displayName, bio } : null);
+        setUser(prev => prev ? { ...prev, displayName, bio, avatarUrl: finalAvatarUrl || undefined } : null);
+        setAvatarPreview(finalAvatarUrl);
+        setAvatarFile(null);
       }
     } catch (err) {
       setError('אירעה שגיאה בעדכון הפרופיל');
@@ -127,11 +158,23 @@ export default function Profile() {
           <div className="text-gray-900">{user?.email}</div>
         </div>
       </div>
-      
+
       <div className="bg-white shadow-md rounded p-6">
         <h2 className="text-xl font-bold mb-4 text-blue-800">עדכון פרופיל</h2>
-        
+
         <form onSubmit={handleUpdateProfile}>
+          <div className="mb-4 flex items-center">
+            <div className="w-16 h-16 rounded-full overflow-hidden bg-blue-100 flex items-center justify-center mr-4">
+              {avatarPreview ? (
+                <img src={avatarPreview} alt="avatar" className="w-full h-full object-cover" />
+              ) : (
+                <span className="text-blue-700 font-bold text-xl">
+                  {displayName.charAt(0) || user?.username.charAt(0) || '?'}
+                </span>
+              )}
+            </div>
+            <input type="file" accept="image/*" onChange={handleAvatarChange} />
+          </div>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2" htmlFor="displayName">
               שם תצוגה:

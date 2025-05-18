@@ -58,6 +58,12 @@ jest.mock('@/utils/supabase-client', () => ({
         eq: jest.fn(() => Promise.resolve({ data: {}, error: null })),
       })),
     })),
+    storage: {
+      from: jest.fn(() => ({
+        upload: jest.fn(() => Promise.resolve({ data: {}, error: null })),
+        getPublicUrl: jest.fn(() => ({ data: { publicUrl: 'http://example.com/avatar.png' }, error: null })),
+      })),
+    },
   })),
   ToraUser: {},
   Source: {},

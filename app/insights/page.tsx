@@ -105,8 +105,12 @@ export default function Insights() {
               )}
               
               <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-bold">
-                  {insight.user?.displayName?.charAt(0) || insight.user?.username?.charAt(0) || '?'}
+                <div className="w-10 h-10 rounded-full overflow-hidden bg-blue-100 flex items-center justify-center text-blue-700 font-bold">
+                  {insight.user?.avatarUrl ? (
+                    <img src={insight.user.avatarUrl} alt="avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    insight.user?.displayName?.charAt(0) || insight.user?.username?.charAt(0) || '?'
+                  )}
                 </div>
                 <div className="mr-3">
                   <div className="font-bold text-gray-900">{insight.user?.displayName || insight.user?.username}</div>
