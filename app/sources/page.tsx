@@ -5,6 +5,15 @@ import Link from 'next/link';
 import { createClient } from '@/utils/supabase-client';
 import { Source } from '@/utils/supabase-client';
 
+// Define type for raw Supabase source data
+interface SourceRow {
+  id: string;
+  title: string;
+  content: string;
+  category: string;
+  created_at: string;
+}
+
 export default function Sources() {
   const [sources, setSources] = useState<Source[]>([]);
   const [loading, setLoading] = useState(true);
@@ -41,7 +50,7 @@ export default function Sources() {
           throw error;
         }
         
-        setSources(data.map(source => ({
+        setSources(data.map((source: SourceRow) => ({
           id: source.id,
           title: source.title,
           content: source.content,

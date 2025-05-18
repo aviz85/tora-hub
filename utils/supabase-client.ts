@@ -1,7 +1,23 @@
 import { createBrowserClient } from '@supabase/ssr';
-import { supabaseUrl, supabaseAnonKey } from '../lib/supabase';
+
+// Get environment variables directly in client utils
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 export const createClient = () => {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    console.error('Missing Supabase environment variables');
+    // Return a minimal client that won't make actual API calls
+    // This prevents runtime errors but the app won't function properly
+    return {
+      auth: {
+        getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+        signInWithPassword: () => Promise.resolve({ data: {}, error: { message: 'Configuration error' } }),
+        signUp: () => Promise.resolve({ data: {}, error: { message: 'Configuration error' } }),
+      },
+    } as any;
+  }
+
   return createBrowserClient(
     supabaseUrl,
     supabaseAnonKey
