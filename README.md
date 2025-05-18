@@ -52,6 +52,7 @@ npm install
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 ```
+שתי ההגדרות הן חובה להרצת הפרויקט, ואין ערכי ברירת מחדל בקוד.
 
 4. הרץ את השרת המקומי:
 ```bash
