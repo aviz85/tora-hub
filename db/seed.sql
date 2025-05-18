@@ -56,9 +56,7 @@ INSERT INTO comments (id, content, user_id, insight_id, created_at) VALUES
 -- Sample likes on insights
 INSERT INTO likes (id, user_id, insight_id, created_at) VALUES
 ('d2e3f4a5-b6c7-8d9e-0f1a-2b3c4d5e6f7a', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d', NOW() - INTERVAL '1 day'),
-('e3f4a5b6-c7d8-9e0f-1a2b-3c4d5e6f7a8b', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d', NOW()),
 ('f4a5b6c7-d8e9-0f1a-2b3c-4d5e6f7a8b9c', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e', NOW() - INTERVAL '2 day'),
-('a5b6c7d8-e9f0-1a2b-3c4d-5e6f7a8b9c0d', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e', NOW() - INTERVAL '1 day'),
 ('b6c7d8e9-f0a1-2b3c-4d5e-6f7a8b9c0d1e', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'c3d4e5f6-a7b8-9c0d-1e2f-3a4b5c6d7e8f', NOW() - INTERVAL '6 hour'),
 ('c7d8e9f0-a1b2-3c4d-5e6f-7a8b9c0d1e2f', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a', NOW() - INTERVAL '2 day'),
 ('d8e9f0a1-b2c3-4d5e-6f7a-8b9c0d1e2f3a', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f9a0b', NOW() - INTERVAL '1 day'),
