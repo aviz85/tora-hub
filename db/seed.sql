@@ -24,34 +24,34 @@ INSERT INTO sources (id, title, content, category, created_at) VALUES
 -- Create test profiles first (required before insights can be created)
 INSERT INTO profiles (id, username, display_name, created_at, updated_at)
 VALUES
-('00000000-0000-0000-0000-000000000001', 'user1', 'משה לוי', NOW(), NOW()),
+('8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'user1', 'משה לוי', NOW(), NOW()),
 ('00000000-0000-0000-0000-000000000002', 'user2', 'שרה כהן', NOW(), NOW()),
 ('00000000-0000-0000-0000-000000000003', 'user3', 'דוד ישראלי', NOW(), NOW());
 
 -- Sample insights (Torah commentaries)
 INSERT INTO insights (id, content, user_id, source_id, created_at) VALUES
-('a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d', 'רש"י מפרש "בראשית" - בשביל התורה שנקראת "ראשית דרכו", כלומר, העולם נברא בזכות התורה.', '00000000-0000-0000-0000-000000000001', '62f17a3d-7e3a-4e3f-9fcb-71cce1c67eff', NOW() - INTERVAL '2 day'),
+('a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d', 'רש"י מפרש "בראשית" - בשביל התורה שנקראת "ראשית דרכו", כלומר, העולם נברא בזכות התורה.', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', '62f17a3d-7e3a-4e3f-9fcb-71cce1c67eff', NOW() - INTERVAL '2 day'),
 ('b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e', 'הרמב"ן מפרש "בראשית" מלשון ראשית, כלומר, בתחילה ברא אלוקים את השמים ואת הארץ.', '00000000-0000-0000-0000-000000000002', '62f17a3d-7e3a-4e3f-9fcb-71cce1c67eff', NOW() - INTERVAL '1 day'),
 ('c3d4e5f6-a7b8-9c0d-1e2f-3a4b5c6d7e8f', 'אבן עזרא מסביר שהמצווה הראשונה היא להאמין באל אחד, ולכן נאמר "אנכי ה'' אלקיך" בלשון יחיד.', '00000000-0000-0000-0000-000000000001', 'c0d83a30-77b2-4101-8087-45783b78475e', NOW()),
 ('d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a', 'הרמב"ם מונה את "ואהבת לרעך כמוך" כאחת מהמצוות החשובות ביותר, ורבי עקיבא אמר שזהו כלל גדול בתורה.', '00000000-0000-0000-0000-000000000003', 'd7b5e47a-82c9-4c6a-958c-bd2c2f0aca1b', NOW() - INTERVAL '5 day'),
 ('e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f9a0b', 'משנה זו מדגישה את רעיון מסירת התורה שבעל פה מדור לדור, ומתארת את שרשרת המסורת.', '00000000-0000-0000-0000-000000000002', 'a8b9c2d3-e4f5-4a2b-b1c2-d3e4f5a6b7c8', NOW() - INTERVAL '3 day'),
 ('f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f9a0b1c', 'הרמב"ם מסביר שעל שלושת העמודים האלה - תורה, עבודה, וגמילות חסדים - מתקיים העולם כולו.', '00000000-0000-0000-0000-000000000003', '7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f', NOW() - INTERVAL '2 day'),
-('a7b8c9d0-e1f2-3a4b-5c6d-7e8f9a0b1c2d', 'רבנו יונה מפרש שמוסר עצמי ותיקון המידות חשובים יותר מעונשים חיצוניים.', '00000000-0000-0000-0000-000000000001', '3f4a5b6c-7d8e-9f0a-1b2c-3d4e5f6a7b8c', NOW() - INTERVAL '1 day'),
+('a7b8c9d0-e1f2-3a4b-5c6d-7e8f9a0b1c2d', 'רבנו יונה מפרש שמוסר עצמי ותיקון המידות חשובים יותר מעונשים חיצוניים.', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', '3f4a5b6c-7d8e-9f0a-1b2c-3d4e5f6a7b8c', NOW() - INTERVAL '1 day'),
 ('b8c9d0e1-f2a3-4b5c-6d7e-8f9a0b1c2d3e', 'הרב סולובייצ''יק מסביר שהווידוי הוא חלק הכרחי בתהליך התשובה כי הוא מבטא את ההכרה בחטא.', '00000000-0000-0000-0000-000000000002', '9a8b7c6d-5e4f-3a2b-1c0d-9e8f7a6b5c4d', NOW()),
 ('c9d0e1f2-a3b4-5c6d-7e8f-9a0b1c2d3e4f', 'החפץ חיים הדגיש את חשיבות ההתבוננות בתכלית חיינו כפי שמופיע במסילת ישרים.', '00000000-0000-0000-0000-000000000003', '5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9a0b', NOW() - INTERVAL '4 day'),
-('d0e1f2a3-b4c5-6d7e-8f9a-0b1c2d3e4f5a', 'האדמו"ר מפיאסצנא הסביר שכל אדם הוא עולם שלם, ולכן יש חשיבות עצומה לתיקון הפרט.', '00000000-0000-0000-0000-000000000001', '1c2d3e4f-5a6b-7c8d-9e0f-1a2b3c4d5e6f', NOW() - INTERVAL '3 day'),
+('d0e1f2a3-b4c5-6d7e-8f9a-0b1c2d3e4f5a', 'האדמו"ר מפיאסצנא הסביר שכל אדם הוא עולם שלם, ולכן יש חשיבות עצומה לתיקון הפרט.', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', '1c2d3e4f-5a6b-7c8d-9e0f-1a2b3c4d5e6f', NOW() - INTERVAL '3 day'),
 ('e1f2a3b4-c5d6-7e8f-9a0b-1c2d3e4f5a6b', 'הרב קוק רואה בתשובה לא רק תיקון לחטא, אלא תהליך של התעלות והתחדשות רוחנית מתמדת.', '00000000-0000-0000-0000-000000000002', '7a8b9c0d-1e2f-3a4b-5c6d-7e8f9a0b1c2d', NOW() - INTERVAL '2 day');
 
 -- Sample comments on insights
 INSERT INTO comments (id, content, user_id, insight_id, created_at) VALUES
 ('f2a3b4c5-d6e7-8f9a-0b1c-2d3e4f5a6b7c', 'פירוש מרתק של רש"י! תודה רבה על השיתוף.', '00000000-0000-0000-0000-000000000003', 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d', NOW() - INTERVAL '1 day'),
 ('a3b4c5d6-e7f8-9a0b-1c2d-3e4f5a6b7c8d', 'גם הזוהר מפרש את "בראשית" באופן דומה, המילה מרמזת על הספירות.', '00000000-0000-0000-0000-000000000002', 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d', NOW()),
-('b4c5d6e7-f8a9-0b1c-2d3e-4f5a6b7c8d9e', 'פירוש הרמב"ן על בראשית הוא אחד הפירושים העמוקים ביותר לתורה.', '00000000-0000-0000-0000-000000000001', 'b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e', NOW() - INTERVAL '12 hour'),
+('b4c5d6e7-f8a9-0b1c-2d3e-4f5a6b7c8d9e', 'פירוש הרמב"ן על בראשית הוא אחד הפירושים העמוקים ביותר לתורה.', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e', NOW() - INTERVAL '12 hour'),
 ('c5d6e7f8-a9b0-1c2d-3e4f-5a6b7c8d9e0f', 'מעניין לראות את ההבדל בין פרשנותו של רש"י לבין הרמב"ן בהקשר זה.', '00000000-0000-0000-0000-000000000003', 'b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e', NOW() - INTERVAL '6 hour'),
 ('d6e7f8a9-b0c1-2d3e-4f5a-6b7c8d9e0f1a', 'אבן עזרא בדרך כלל מדגיש את הפשט, וכאן הוא מדגיש את הרעיון המונותאיסטי.', '00000000-0000-0000-0000-000000000002', 'c3d4e5f6-a7b8-9c0d-1e2f-3a4b5c6d7e8f', NOW() - INTERVAL '5 hour'),
-('e7f8a9b0-c1d2-3e4f-5a6b-7c8d9e0f1a2b', 'הלל הזקן גם אמר "דעלך סני לחברך לא תעביד" - מה ששנוא עליך אל תעשה לחברך. זהו הפירוש לאהבת הרע.', '00000000-0000-0000-0000-000000000001', 'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a', NOW() - INTERVAL '3 day'),
+('e7f8a9b0-c1d2-3e4f-5a6b-7c8d9e0f1a2b', 'הלל הזקן גם אמר "דעלך סני לחברך לא תעביד" - מה ששנוא עליך אל תעשה לחברך. זהו הפירוש לאהבת הרע.', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a', NOW() - INTERVAL '3 day'),
 ('f8a9b0c1-d2e3-4f5a-6b7c-8d9e0f1a2b3c', 'מעניין לראות איך המשנה מתארת את תהליך העברת המסורת בצורה ברורה כל כך.', '00000000-0000-0000-0000-000000000003', 'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f9a0b', NOW() - INTERVAL '2 day'),
-('a9b0c1d2-e3f4-5a6b-7c8d-9e0f1a2b3c4d', 'הווידוי הוא תהליך מטהר כי הוא מחייב את האדם להתעמת עם מעשיו באופן ישיר.', '00000000-0000-0000-0000-000000000001', 'b8c9d0e1-f2a3-4b5c-6d7e-8f9a0b1c2d3e', NOW() - INTERVAL '1 day'),
+('a9b0c1d2-e3f4-5a6b-7c8d-9e0f1a2b3c4d', 'הווידוי הוא תהליך מטהר כי הוא מחייב את האדם להתעמת עם מעשיו באופן ישיר.', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'b8c9d0e1-f2a3-4b5c-6d7e-8f9a0b1c2d3e', NOW() - INTERVAL '1 day'),
 ('b0c1d2e3-f4a5-6b7c-8d9e-0f1a2b3c4d5e', 'הרב סולובייצ''יק מדגיש שהתשובה היא יותר מאשר הבעת חרטה - היא שינוי מהותי באדם.', '00000000-0000-0000-0000-000000000003', 'b8c9d0e1-f2a3-4b5c-6d7e-8f9a0b1c2d3e', NOW()),
 ('c1d2e3f4-a5b6-7c8d-9e0f-1a2b3c4d5e6f', 'המסילת ישרים מתחיל בשאלה המהותית ביותר - מה חובת האדם בעולמו. זוהי נקודת התחלה מושלמת.', '00000000-0000-0000-0000-000000000002', 'c9d0e1f2-a3b4-5c6d-7e8f-9a0b1c2d3e4f', NOW() - INTERVAL '3 day');
 
@@ -59,14 +59,14 @@ INSERT INTO comments (id, content, user_id, insight_id, created_at) VALUES
 INSERT INTO likes (id, user_id, insight_id, created_at) VALUES
 ('d2e3f4a5-b6c7-8d9e-0f1a-2b3c4d5e6f7a', '00000000-0000-0000-0000-000000000002', 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d', NOW() - INTERVAL '1 day'),
 ('e3f4a5b6-c7d8-9e0f-1a2b-3c4d5e6f7a8b', '00000000-0000-0000-0000-000000000003', 'a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d', NOW()),
-('f4a5b6c7-d8e9-0f1a-2b3c-4d5e6f7a8b9c', '00000000-0000-0000-0000-000000000001', 'b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e', NOW() - INTERVAL '2 day'),
+('f4a5b6c7-d8e9-0f1a-2b3c-4d5e6f7a8b9c', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e', NOW() - INTERVAL '2 day'),
 ('a5b6c7d8-e9f0-1a2b-3c4d-5e6f7a8b9c0d', '00000000-0000-0000-0000-000000000003', 'b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e', NOW() - INTERVAL '1 day'),
-('b6c7d8e9-f0a1-2b3c-4d5e-6f7a8b9c0d1e', '00000000-0000-0000-0000-000000000001', 'c3d4e5f6-a7b8-9c0d-1e2f-3a4b5c6d7e8f', NOW() - INTERVAL '6 hour'),
+('b6c7d8e9-f0a1-2b3c-4d5e-6f7a8b9c0d1e', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'c3d4e5f6-a7b8-9c0d-1e2f-3a4b5c6d7e8f', NOW() - INTERVAL '6 hour'),
 ('c7d8e9f0-a1b2-3c4d-5e6f-7a8b9c0d1e2f', '00000000-0000-0000-0000-000000000002', 'd4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a', NOW() - INTERVAL '2 day'),
 ('d8e9f0a1-b2c3-4d5e-6f7a-8b9c0d1e2f3a', '00000000-0000-0000-0000-000000000003', 'e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f9a0b', NOW() - INTERVAL '1 day'),
-('e9f0a1b2-c3d4-5e6f-7a8b-9c0d1e2f3a4b', '00000000-0000-0000-0000-000000000001', 'f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f9a0b1c', NOW() - INTERVAL '12 hour'),
+('e9f0a1b2-c3d4-5e6f-7a8b-9c0d1e2f3a4b', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f9a0b1c', NOW() - INTERVAL '12 hour'),
 ('f0a1b2c3-d4e5-6f7a-8b9c-0d1e2f3a4b5c', '00000000-0000-0000-0000-000000000002', 'a7b8c9d0-e1f2-3a4b-5c6d-7e8f9a0b1c2d', NOW() - INTERVAL '1 day'),
 ('a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d', '00000000-0000-0000-0000-000000000003', 'b8c9d0e1-f2a3-4b5c-6d7e-8f9a0b1c2d3e', NOW() - INTERVAL '2 day'),
-('b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e', '00000000-0000-0000-0000-000000000001', 'c9d0e1f2-a3b4-5c6d-7e8f-9a0b1c2d3e4f', NOW() - INTERVAL '1 day'),
+('b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e', '8a130c80-adce-4a53-8cdb-e52b4d6b21c9', 'c9d0e1f2-a3b4-5c6d-7e8f-9a0b1c2d3e4f', NOW() - INTERVAL '1 day'),
 ('c3d4e5f6-a7b8-9c0d-1e2f-3a4b5c6d7e8f', '00000000-0000-0000-0000-000000000002', 'd0e1f2a3-b4c5-6d7e-8f9a-0b1c2d3e4f5a', NOW() - INTERVAL '6 hour'),
 ('d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a', '00000000-0000-0000-0000-000000000003', 'e1f2a3b4-c5d6-7e8f-9a0b-1c2d3e4f5a6b', NOW() - INTERVAL '1 day'); 
