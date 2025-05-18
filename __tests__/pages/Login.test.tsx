@@ -1,21 +1,14 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Login from '@/app/login/page';
-import { createClient } from '@/utils/supabase-client';
 
-// Mock the createClient function and its return values
-jest.mock('@/utils/supabase-client', () => ({
-  createClient: jest.fn(() => ({
-    auth: {
-      signInWithPassword: jest.fn(() => Promise.resolve({ data: {}, error: null })),
-    },
-  })),
-}));
-
+// Mock Next.js router
+const mockPush = jest.fn();
+const mockRefresh = jest.fn();
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({
-    push: jest.fn(),
-    refresh: jest.fn(),
+    push: mockPush,
+    refresh: mockRefresh,
   })),
 }));
 
@@ -23,6 +16,8 @@ describe('Login Page', () => {
   beforeEach(() => {
     // Reset mocks before each test
     jest.clearAllMocks();
+    global.mockSignInWithPassword.mockReset();
+    global.mockSignInWithPassword.mockResolvedValue({ data: {}, error: null });
   });
 
   it('renders login form', () => {
@@ -60,8 +55,7 @@ describe('Login Page', () => {
     
     // Check if Supabase auth method was called with correct credentials
     await waitFor(() => {
-      const mockClient = createClient();
-      expect(mockClient.auth.signInWithPassword).toHaveBeenCalledWith({
+      expect(global.mockSignInWithPassword).toHaveBeenCalledWith({
         email: 'test@example.com',
         password: 'password123',
       });
@@ -69,14 +63,10 @@ describe('Login Page', () => {
   });
   
   it('shows error message when login fails', async () => {
-    // Mock an error response
-    (createClient as jest.Mock).mockReturnValueOnce({
-      auth: {
-        signInWithPassword: jest.fn(() => Promise.resolve({ 
-          data: {}, 
-          error: { message: 'Invalid login credentials' } 
-        })),
-      },
+    // Set up the mock to return an error for this test only
+    global.mockSignInWithPassword.mockResolvedValueOnce({ 
+      data: {}, 
+      error: { message: 'Invalid login credentials' }
     });
     
     const user = userEvent.setup();

@@ -1,6 +1,13 @@
 // Import jest-dom to add custom jest matchers for asserting on DOM nodes
 import '@testing-library/jest-dom';
 
+// Create mocks for the most commonly used functions
+global.mockSignInWithPassword = jest.fn(() => Promise.resolve({ data: {}, error: null }));
+global.mockSignUp = jest.fn(() => Promise.resolve({ data: {}, error: null }));
+global.mockSignOut = jest.fn(() => Promise.resolve({ error: null }));
+global.mockSessionGetter = jest.fn(() => Promise.resolve({ data: { session: null } }));
+global.mockStateChange = jest.fn(() => ({ data: { subscription: { unsubscribe: jest.fn() } } }));
+
 // Mock Next.js router
 jest.mock('next/navigation', () => ({
   useRouter() {
@@ -25,11 +32,11 @@ jest.mock('next/navigation', () => ({
 jest.mock('@/utils/supabase-client', () => ({
   createClient: jest.fn(() => ({
     auth: {
-      getSession: jest.fn(() => Promise.resolve({ data: { session: null } })),
-      signInWithPassword: jest.fn(() => Promise.resolve({ data: {}, error: null })),
-      signUp: jest.fn(() => Promise.resolve({ data: {}, error: null })),
-      signOut: jest.fn(() => Promise.resolve({ error: null })),
-      onAuthStateChange: jest.fn(() => ({ data: { subscription: { unsubscribe: jest.fn() } } })),
+      getSession: global.mockSessionGetter,
+      signInWithPassword: global.mockSignInWithPassword,
+      signUp: global.mockSignUp,
+      signOut: global.mockSignOut,
+      onAuthStateChange: global.mockStateChange,
     },
     from: jest.fn(() => ({
       select: jest.fn(() => ({

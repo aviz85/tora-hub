@@ -1,27 +1,27 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Signup from '@/app/signup/page';
-import { createClient } from '@/utils/supabase-client';
 
-// Mock the createClient function and its return values
-jest.mock('@/utils/supabase-client', () => ({
-  createClient: jest.fn(() => ({
-    auth: {
-      signUp: jest.fn(() => Promise.resolve({ data: {}, error: null })),
-    },
-  })),
-}));
-
+// Mock Next.js router
+const mockPush = jest.fn();
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({
-    push: jest.fn(),
+    push: mockPush,
   })),
 }));
 
 describe('Signup Page', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    window.location = { origin: 'http://localhost:3000' } as any;
+    // Mock window.location
+    Object.defineProperty(window, 'location', {
+      value: { origin: 'http://localhost' },
+      writable: true
+    });
+    
+    // Reset the mocks
+    global.mockSignUp.mockReset();
+    global.mockSignUp.mockResolvedValue({ data: {}, error: null });
   });
 
   it('renders signup form', () => {
@@ -60,8 +60,7 @@ describe('Signup Page', () => {
     });
     
     // Verify Supabase signUp wasn't called
-    const mockClient = createClient();
-    expect(mockClient.auth.signUp).not.toHaveBeenCalled();
+    expect(global.mockSignUp).not.toHaveBeenCalled();
   });
   
   it('validates password length', async () => {
@@ -82,8 +81,7 @@ describe('Signup Page', () => {
     });
     
     // Verify Supabase signUp wasn't called
-    const mockClient = createClient();
-    expect(mockClient.auth.signUp).not.toHaveBeenCalled();
+    expect(global.mockSignUp).not.toHaveBeenCalled();
   });
   
   it('submits form with valid data', async () => {
@@ -100,12 +98,11 @@ describe('Signup Page', () => {
     
     // Check if Supabase signUp was called with correct data
     await waitFor(() => {
-      const mockClient = createClient();
-      expect(mockClient.auth.signUp).toHaveBeenCalledWith({
+      expect(global.mockSignUp).toHaveBeenCalledWith({
         email: 'test@example.com',
         password: 'password123',
         options: {
-          emailRedirectTo: 'http://localhost:3000/auth/callback',
+          emailRedirectTo: 'http://localhost/auth/callback',
         },
       });
     });
