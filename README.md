@@ -47,7 +47,11 @@ cd tora-hub
 npm install
 ```
 
-3. צור קובץ `.env.local` והגדר בו את הקישור והמפתח של Supabase:
+3. העתק את הקובץ `.env.example` ל־`.env.local` ומלא את הקישור והמפתח של Supabase:
+```bash
+cp .env.example .env.local
+```
+לאחר ההעתקה ערוך את `\.env.local` והזין את הערכים שלך:
 ```
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
@@ -66,7 +70,7 @@ npm run dev
 1. צור חשבון ב-Supabase וצור פרוייקט חדש.
 2. הקם את מסד הנתונים על פי ה-SQL שנמצא בקובץ `db/schema.sql`.
 3. הגדר את שירותי האותנטיקציה וה-Row Level Security הנדרשים.
-4. העתק את כתובת ה-URL ואת מפתח ה-Anon לקובץ `.env.local`.
+4. היעזר בקובץ `.env.example` והעתק את כתובת ה-URL ואת מפתח ה-Anon ל־`.env.local`.
 
 ## פריסה
 
