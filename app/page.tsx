@@ -1,103 +1,111 @@
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="flex flex-col space-y-16">
+      {/* Hero Section */}
+      <section className="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="flex-1 space-y-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-blue-900">
+            ברוכים הבאים לתורה האב
+          </h1>
+          <p className="text-xl text-gray-700">
+            הרשת החברתית התורנית שמחברת בין לומדי תורה ומאפשרת שיתוף חידושים, תובנות ופירושים.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/signup"
+              className="bg-blue-700 hover:bg-blue-800 text-white py-3 px-6 rounded-lg text-center font-semibold shadow-md transition duration-200"
+            >
+              הצטרפו עכשיו
+            </Link>
+            <Link
+              href="/sources"
+              className="bg-white hover:bg-gray-100 text-blue-700 border border-blue-700 py-3 px-6 rounded-lg text-center font-semibold shadow-sm transition duration-200"
+            >
+              עיינו במקורות
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="flex-1 flex justify-center">
+          <div className="relative w-full max-w-md h-80">
+            <div className="absolute top-0 right-0 bg-blue-100 opacity-70 w-64 h-64 rounded-full z-0"></div>
+            <div className="absolute bottom-0 left-0 bg-blue-200 opacity-70 w-64 h-64 rounded-full z-0"></div>
+            <div className="relative z-10 flex items-center justify-center h-full">
+              <div className="bg-white p-4 rounded-lg shadow-xl">
+                <div className="text-2xl font-bold text-center text-blue-800 mb-2">תורה האב</div>
+                <div className="text-gray-600 text-center">מחברים בין עולמות</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-8">
+        <h2 className="text-3xl font-bold text-center mb-12 text-blue-900">הפלטפורמה שלנו מציעה</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+            <div className="flex justify-center mb-4">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+            </div>
+            <h3 className="text-xl font-semibold text-center mb-2">מקורות תורניים</h3>
+            <p className="text-gray-600 text-center">
+              גישה למאגר עשיר של מקורות תורניים, פרשנות ופירושים מסודרים לפי נושאים.
+            </p>
+          </div>
+          
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+            <div className="flex justify-center mb-4">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+              </div>
+            </div>
+            <h3 className="text-xl font-semibold text-center mb-2">חידושי תורה</h3>
+            <p className="text-gray-600 text-center">
+              אפשרות לפרסם חידושי תורה אישיים, להגיב על חידושים של אחרים ולקיים דיון פורה.
+            </p>
+          </div>
+          
+          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+            <div className="flex justify-center mb-4">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+            </div>
+            <h3 className="text-xl font-semibold text-center mb-2">קהילה תורנית</h3>
+            <p className="text-gray-600 text-center">
+              הזדמנות להתחבר עם קהילת לומדי תורה, לשתף ידע ולקבל תובנות חדשות.
+            </p>
+          </div>
+        </div>
+      </section>
+      
+      {/* Call to Action */}
+      <section className="bg-blue-50 py-12 px-6 rounded-xl">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-blue-900 mb-4">הצטרפו לקהילה שלנו</h2>
+          <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
+            כבר יותר מ-1,000 לומדי תורה משתפים את תובנותיהם בפלטפורמה שלנו.
+            הצטרפו עוד היום וקחו חלק בשיח התורני העשיר שלנו.
+          </p>
+          <Link
+            href="/signup"
+            className="bg-blue-700 hover:bg-blue-800 text-white py-3 px-8 rounded-lg text-lg font-semibold shadow-md transition duration-200"
+          >
+            הרשמה חינמית
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }
