@@ -18,6 +18,8 @@ export default function SourceDetail() {
   const [user, setUser] = useState<ToraUser | null>(null);
   const [newInsight, setNewInsight] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [likingInProgress, setLikingInProgress] = useState(false);
+  const [userLikes, setUserLikes] = useState<Record<string, boolean>>({});
   
   useEffect(() => {
     const fetchData = async () => {
@@ -29,13 +31,15 @@ export default function SourceDetail() {
         
         // Check if user is logged in
         const { data: { session } } = await supabase.auth.getSession();
+        let userId = null;
         
         if (session) {
+          userId = session.user.id;
           // Fetch user profile
           const { data: profileData } = await supabase
             .from('profiles')
             .select('*')
-            .eq('id', session.user.id)
+            .eq('id', userId)
             .single();
             
           if (profileData) {
@@ -76,7 +80,8 @@ export default function SourceDetail() {
           .from('insights')
           .select(`
             *,
-            profiles (id, username, display_name, avatar_url)
+            profiles (id, username, display_name, avatar_url),
+            insight_likes (likes_count)
           `)
           .eq('source_id', sourceId)
           .order('created_at', { ascending: false });
@@ -92,7 +97,7 @@ export default function SourceDetail() {
             userId: insight.user_id,
             sourceId: insight.source_id,
             createdAt: insight.created_at,
-            likes: insight.likes || 0,
+            likes: insight.insight_likes ? insight.insight_likes[0]?.likes_count || 0 : 0,
             user: insight.profiles ? {
               id: insight.profiles.id,
               email: '',
@@ -101,6 +106,22 @@ export default function SourceDetail() {
               avatarUrl: insight.profiles.avatar_url,
             } : undefined,
           })));
+        }
+        
+        // If user is logged in, fetch their likes
+        if (userId) {
+          const { data: likesData } = await supabase
+            .from('likes')
+            .select('insight_id')
+            .eq('user_id', userId);
+            
+          if (likesData) {
+            const userLikesMap: Record<string, boolean> = {};
+            likesData.forEach((like: { insight_id: string }) => {
+              userLikesMap[like.insight_id] = true;
+            });
+            setUserLikes(userLikesMap);
+          }
         }
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -173,6 +194,60 @@ export default function SourceDetail() {
       alert('אירעה שגיאה בפרסום החידוש. אנא נסו שנית מאוחר יותר.');
     } finally {
       setSubmitting(false);
+    }
+  };
+  
+  const handleLikeToggle = async (insightId: string) => {
+    if (!user) {
+      router.push('/login');
+      return;
+    }
+    
+    if (likingInProgress) return;
+    
+    setLikingInProgress(true);
+    try {
+      const supabase = createClient();
+      
+      if (userLikes[insightId]) {
+        // Remove like
+        await supabase
+          .from('likes')
+          .delete()
+          .eq('user_id', user.id)
+          .eq('insight_id', insightId);
+          
+        // Update local state
+        setUserLikes({ ...userLikes, [insightId]: false });
+        setInsights(insights.map(insight => {
+          if (insight.id === insightId) {
+            return { ...insight, likes: Math.max(0, insight.likes - 1) };
+          }
+          return insight;
+        }));
+      } else {
+        // Add like
+        await supabase
+          .from('likes')
+          .insert({
+            user_id: user.id,
+            insight_id: insightId
+          });
+          
+        // Update local state
+        setUserLikes({ ...userLikes, [insightId]: true });
+        setInsights(insights.map(insight => {
+          if (insight.id === insightId) {
+            return { ...insight, likes: insight.likes + 1 };
+          }
+          return insight;
+        }));
+      }
+    } catch (err) {
+      console.error('Error toggling like:', err);
+      alert('אירעה שגיאה בעת ביצוע הפעולה. אנא נסו שנית.');
+    } finally {
+      setLikingInProgress(false);
     }
   };
   
@@ -284,6 +359,33 @@ export default function SourceDetail() {
                   {insight.content.split('\n').map((paragraph, index) => (
                     <p key={index} className="mb-4 text-gray-700">{paragraph}</p>
                   ))}
+                </div>
+                <div className="mt-4 flex justify-between items-center">
+                  <button
+                    onClick={() => handleLikeToggle(insight.id)}
+                    disabled={!user || likingInProgress}
+                    className={`flex items-center text-sm ${
+                      userLikes[insight.id] 
+                        ? 'text-blue-600 font-medium' 
+                        : 'text-gray-500 hover:text-blue-600'
+                    }`}
+                  >
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      className={`h-5 w-5 mr-1 ${userLikes[insight.id] ? 'fill-blue-600' : 'fill-none'}`} 
+                      viewBox="0 0 24 24" 
+                      stroke="currentColor"
+                    >
+                      <path 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round" 
+                        strokeWidth={2} 
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
+                      />
+                    </svg>
+                    <span>שכויעח!</span>
+                    <span className="mr-1">{insight.likes}</span>
+                  </button>
                 </div>
               </div>
             ))}
